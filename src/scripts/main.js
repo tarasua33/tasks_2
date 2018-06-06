@@ -5,16 +5,15 @@
         sizeLine = document.querySelector("#lineSize"),                  // line min-max SCROLL SIZE
         speedButt = document.querySelector("#scrollSpeed"),              // button for SCROLL SPEED
         speedLine = document.querySelector("#lineSpeed"),                // line min-max SCROLL SPEED
-        speedRotate = 3,                                                 // initial speed rotate
         rotateRightButt = document.querySelector(".rotateRight"),
         rotateLeftButt = document.querySelector(".rotateLeft"),
-        degree = 0,                                                       // initial rotate degree
         resetButt = document.querySelector(".reset"),
-
         dominoSelected = document.querySelector(".options-type-selectedType-name"),
         openListDomino = document.querySelector(".options-type-selectedType-arrow"),
         dominoList = document.querySelector(".options-type-list"),
 
+        degree = 0,                                                         // initial rotate degree
+        speedRotate = 3,                                                    // initial speed rotate
         isMouseDown = false;                                                /// VALUE FOR CORRECT WORK MOUSEMOVE BY FIREFOX
 
     initialFunc();                                                          // initial options (set transitions)
@@ -55,6 +54,7 @@
     /*initial options*/
     function initialFunc() {
         dominoWrapper.style.transition = speedRotate+"s";
+        randomDomino();
         /*FUNCTIONS FOR CORRECT WORK MOUSEMOVE BY FIREFOX*/
         document.addEventListener('mouseup',
             function(){
@@ -152,26 +152,28 @@
 
     /*Rotate func - right*/
     function rotateRight(e) {
-        degree = degree+90;
+        degree = degree+180;
         dominoWrapper.style.transform = "rotate("+degree+"deg)";
     };
     /*Rotate func - left*/
     function rotateLeft(e) {
-        degree = degree-90;
+        degree = degree-180;
         dominoWrapper.style.transform = "rotate("+degree+"deg)";
     };
 
     /*Reset func*/
     function resetClick(e) {
+        randomDomino();
+        /*set initial options*/
+        initialOptions();
+    };
+    function randomDomino() {
         var randomTop = Math.floor(Math.random() * (6 + 1)),
             randomBottom = Math.floor(Math.random() * (6 - randomTop + 1)) + randomTop;
 
         dominoPic.setAttribute("src", "img/d-"+randomTop+"-"+randomBottom+".png");
         dominoSelected.innerText = "";
-
-        /*set initial options*/
-        initialOptions();
-    }
+    };
     function initialOptions() {
         dominoWrapper.removeAttribute("style");
         degree = 0;
@@ -182,7 +184,7 @@
 
         dominoPic.style.transform = "scale(1)";
         sizeButt.style.left = 0+"px";
-    }
+    };
 
     /*select domino - func*/
     function selectDomino(e) {

@@ -1,0 +1,159 @@
+.domino {
+  height: 450px;
+  text-align: center;
+  &-picWrapper {
+    display: inline-block;
+  }
+  &:after {
+    height: 100%;
+    font-size: 0;
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+.buttons {
+  padding: 0;
+  font-size: 0;
+  text-decoration: none;
+  text-align: center;
+  &-item {
+    display: inline-block;
+    &-rotateBut {
+      padding: 15px 12px 12px 15px;
+      background: #2c3e50;
+      border-right: 0;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+  }
+  & .rotateLeft {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    &:hover {
+      color: #e74c3c;
+    }
+  }
+  & .rotateRight {
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    &:hover {
+      color: #e74c3c;
+    }
+  }
+}
+.reset {
+  background: #e74c3c;
+  &:hover {
+    color: #2c3e50;
+  }
+}
+.options {
+  width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0;
+  &-desc {
+    display: inline-block;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    color: #2c3e50;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  &-block {
+    border: 1px solid #dce4ec;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    border-radius: 3px;
+    &-base {
+      padding-bottom: 10px;
+      padding-top: 10px;
+      position: relative;
+    }
+    &-line {
+      border-bottom: 1px solid #999999;
+      border-top: 1px solid #999999;
+    }
+  }
+  &-type {
+    padding: 0;
+    list-style: none;
+    position: relative;
+    height: 100%;
+    &-selectedType {
+      height: 100%;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: right;
+      &-name {
+        display: inline-block;
+        padding-right: 10px;
+      }
+      &-arrow {
+        display: inline-block;
+        width: 10px;
+        height: 36px;
+        padding-top: 12px;
+        font-size: 8px;
+        background: #f2f1f0;
+        border-right: 1px solid #868584;
+        border-bottom: 1px solid #868584;
+        border-left: 1px solid white;
+        cursor: pointer;
+        &:hover {
+          border-right: 1px solid black;
+          border-bottom: 1px solid black;
+        }
+      }
+    }
+    &-list {
+      position: absolute;
+      display: none;
+      width: 978px;
+      height: 200px;
+      overflow: scroll;
+      z-index: 3;
+      padding: 0;
+      list-style: none;
+      background: white;
+      border-radius: 3px;
+      border: 1px solid #dce4ec;
+      &-items {
+        font-size: 12px;
+        font-weight: 400;
+        cursor: pointer;
+        &:hover {
+          background: #ecf0f1;
+        }
+      }
+    }
+  }
+  & > .type {
+    height: 40px;
+    padding: 0;
+    background: #ecf0f1;
+  }
+}
+.circleButton {
+  position: absolute;
+  top: 2px;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px #dce4ec;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #999999;
+  border-radius: 50%;
+  &:hover {
+    box-shadow: 1px 1px 2px #999;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
