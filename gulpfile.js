@@ -19,6 +19,14 @@ gulp.task("styles:app", function () {
         .pipe(plugins.less())
         .pipe(plugins.cssnano())
         .pipe(plugins.rename("app.min.css"))
+        .pipe(plugins.stylelint({
+            reporters: [
+                {
+                    formatter: 'string',
+                    console: true
+                }
+            ]
+        }))
         .pipe(gulp.dest("dist/css"))
         .pipe(sync.stream())
 });
