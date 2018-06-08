@@ -1,11 +1,56 @@
 /*------------------------------------*\
+  #PARTS DOM FOR CLONE /not use/
+\*------------------------------------*/
+.parts {
+  display: none;
+}
+/*------------------------------------*\
   #DOMINO PIC
 \*------------------------------------*/
 .domino {
   height: 450px;
   text-align: center;
-  &-picWrapper {
+  &-container {
     display: inline-block;
+    border-radius: 4px;
+    transition: 0.3s;
+  }
+  &-wrapper {
+    font-size: 0;
+    display: inline-block;
+    height: 103px;
+    width: 52px;
+    border: 1px solid #737373;
+    border-radius: 4px;
+    vertical-align: bottom;
+    box-shadow: 2px 2px 5px #737373 ;
+    &-part {
+      height: 50px;
+      display: none;
+      &-li {
+        height: 33%;
+        padding-right: 4px;
+        padding-left: 4px;
+        text-align: justify;
+        .emulationMultiLineText();
+        &-point {
+          display: inline-block;
+          height: 8px;
+          width: 8px;
+          border-radius: 50%;
+          background: black;
+          transform: translateY(50%);
+        }
+      }
+    }
+    &-line {
+      width: 44px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 0;
+      font-size: 0;
+      border-bottom: 1px solid #737373;
+    }
   }
   &:after {
     height: 100%;
@@ -14,6 +59,26 @@
     display: inline-block;
     vertical-align: middle;
   }
+}
+.halfDom {
+  &-centerPoint {
+    text-align: center;
+  }
+  &-rightPoint {
+    text-align: right;
+  }
+  &-leftPoint {
+    text-align: left;
+  }
+}
+.dominoRotate {
+  transition: 3s;
+}
+.activeTop {
+  display: block;
+}
+.activeBottom {
+  display: block;
 }
 /*------------------------------------*\
   #BUTTONS ROTATE

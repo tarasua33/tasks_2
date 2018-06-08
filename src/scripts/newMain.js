@@ -1,23 +1,31 @@
 (function() {
-    var dominoPic = document.querySelector("#domino"),                   // pictures DOMINO for change Size
-        dominoWrapper = document.querySelector(".domino-picWrapper"),    // wrapper DOMINO pic for rotate
+    var
+        dominoWrapper = document.querySelector(".dominoRotate"),         // wrapper DOMINO pic for rotate
+        dominoPic = document.querySelector(".dominoSize"),               // pictures DOMINO for change Size
         sizeButt = document.querySelector("#scrollSize"),                // button for SCROLL SIZE
         sizeLine = document.querySelector("#lineSize"),                  // line min-max SCROLL SIZE
         speedButt = document.querySelector("#scrollSpeed"),              // button for SCROLL SPEED
         speedLine = document.querySelector("#lineSpeed"),                // line min-max SCROLL SPEED
-        rotateRightButt = document.querySelector(".rotateRight"),
-        rotateLeftButt = document.querySelector(".rotateLeft"),
-        resetButt = document.querySelector(".reset"),
+        rotateRightButt = document.querySelector(".rotateRight"),          // ROTATE RIGHT
+        rotateLeftButt = document.querySelector(".rotateLeft"),             // ROTATE LEFT
+        resetButt = document.querySelector(".reset"),                       // RESET BUTTON
+
         dominoSelected = document.querySelector(".options-type-selectedType-name"),
         openListDomino = document.querySelector(".options-type-selectedType-arrow"),
         dominoList = document.querySelector(".options-type-list"),
 
+        halfTopDomino = document.querySelectorAll(".halfTop"),              // HALF DOMINO TOP LIST
+        activeHalfTop = null,                                               // ACTIVE TOP NUMBER
+
+        halfBottomDomino = document.querySelectorAll(".halfBottom"),           // HALF DOMINO BOTTOM LIST
+        activeHalfBottom = null,                                               // ACTIVE BOTTOM NUMBER
+
         degree = 0,                                                         // initial rotate degree
         speedRotate = 3,                                                    // initial speed rotate
-        isMouseDown = false;                                                /// VALUE FOR CORRECT WORK MOUSEMOVE BY FIREFOX
+        isMouseDown = false                                              /// VALUE FOR CORRECT WORK MOUSEMOVE BY FIREFOX
+    ;
 
-    initialFunc();                                                          // initial options (set transitions)
-
+    initialFunc();
 
     /*script for change SIZE DOMINO*/
     sizeLine.onmousemove = sizeMouseMove;
@@ -27,33 +35,18 @@
     speedLine.onmousemove = speedMouseMove;
     speedLine.onclick = speedMouseClick;
 
-
+    /*ROTATE*/
     rotateRightButt.onclick = rotateRight;
     rotateLeftButt.onclick = rotateLeft;
 
+    /*RESET BUTTON CLICK*/
     resetButt.onclick = resetClick;
 
-
+    /*SELECT DOMINO*/
     openListDomino.onclick = openListFunc;
-
     dominoList.onclick = selectDomino;
 
-    /* functions */
-
-    /*change Size DOMINO*/
-    function sizeTransform(widthLine) {
-        if ((parseInt(sizeButt.style.left) !== 0) & (parseInt(sizeButt.style.left) !== NaN)) {
-            var sizeScale = ((3*parseInt(sizeButt.style.left))/widthLine)+1;
-            dominoPic.style.transform = "scale("+sizeScale+")";
-        } else if ((parseInt(sizeButt.style.left) === 0)) {
-            dominoPic.style.transform = "scale(1)";
-        }
-    }
-
-
-    /*initial options*/
     function initialFunc() {
-        dominoWrapper.style.transition = speedRotate+"s";
         randomDomino();
         /*FUNCTIONS FOR CORRECT WORK MOUSEMOVE BY FIREFOX*/
         document.addEventListener('mouseup',
@@ -76,11 +69,18 @@
             false);
     }
 
+    /*change Size DOMINO*/
+    function sizeTransform(widthLine) {
+        if ((parseInt(sizeButt.style.left) !== 0) & (parseInt(sizeButt.style.left) !== NaN)) {
+            var sizeScale = ((3*parseInt(sizeButt.style.left))/widthLine)+1;
+            dominoPic.style.transform = "scale("+sizeScale+")";
+        } else if ((parseInt(sizeButt.style.left) === 0)) {
+            dominoPic.style.transform = "scale(1)";
+        }
+    }
     /*Size func - move*/
     function sizeMouseMove(e) {
-
         if (isMouseDown === true) {
-
             /*length maxScroll*/
             var widthLine = parseInt(getComputedStyle(sizeLine).width)-(parseInt(getComputedStyle(sizeButt).width))/2;
 
@@ -89,15 +89,15 @@
             } else if (e.target.id === "scrollSize") {
                 var leftWidth = parseInt(sizeButt.style.left);
                 sizeButt.style.left = (leftWidth+e.offsetX)+"px";
-            }
+            };
             if ((parseInt(sizeButt.style.left) >= widthLine)) {
                 sizeButt.style.left=widthLine+"px";
-            }
+            };
             if (parseInt(sizeButt.style.left) <= 0) {
                 sizeButt.style.left=0+"px";
-            }
+            };
             sizeTransform(widthLine);
-        }
+        };
     };
     /*Size func - click*/
     function sizeMouseClick(e) {
@@ -108,7 +108,7 @@
             }
             sizeTransform(widthLine);
         }
-    }
+    };
 
     //* Speed func - move*/
     function speedMouseMove(e) {
@@ -134,7 +134,7 @@
                 dominoWrapper.style.transition = speedRotate+"s";
             }
         }
-    }
+    };
     /* Speed func - click*/
     function speedMouseClick(e) {
         if (e.target.id === "lineSpeed" || e.target.className === "options-block-line") {
@@ -148,8 +148,7 @@
                 dominoWrapper.style.transition = speedRotate+"s";
             }
         }
-    }
-
+    };
     /*Rotate func - right*/
     function rotateRight(e) {
         degree = degree+180;
@@ -167,13 +166,40 @@
         /*set initial options*/
         initialOptions();
     };
+    /*RANDOM NUMBERS*/
     function randomDomino() {
         var randomTop = Math.floor(Math.random() * (6 + 1)),
-            randomBottom = Math.floor(Math.random() * (6 - randomTop + 1)) + randomTop;
+            randomBottom = Math.floor(Math.random() * (6 + 1));
 
-        dominoPic.setAttribute("src", "img/d-"+randomTop+"-"+randomBottom+".png");
+        changeDomino(randomTop,randomBottom);
+
         dominoSelected.innerText = "";
     };
+    /*CHANGE NUMBERS DOMINO*/
+    function changeDomino(top,bottom) {
+        /*part TOP*/
+        if (activeHalfTop) {
+            activeHalfTop.classList.remove("activeTop");
+            activeHalfTop = null;
+        };
+        if (document.querySelector(".activeTop")) {
+            document.querySelector(".activeTop").classList.remove("activeTop");
+        };
+        activeHalfTop = halfTopDomino[top];
+        activeHalfTop.classList.add("activeTop");
+
+        /*part BOTTOM*/
+        if (activeHalfBottom) {
+            activeHalfBottom.classList.remove("activeBottom");
+            activeHalfBottom = null;
+        };
+        if (document.querySelector(".activeBottom")) {
+            document.querySelector(".activeBottom").classList.remove("activeBottom");
+        };
+        activeHalfBottom = halfBottomDomino[bottom];
+        activeHalfBottom.classList.add("activeBottom");
+    };
+    /*SET INITIAL OPTIONS*/
     function initialOptions() {
         dominoWrapper.removeAttribute("style");
         degree = 0;
@@ -191,7 +217,9 @@
         if (e.target = "LI") {
             var textArr = e.target.innerText.split("-");
             dominoSelected.innerText = e.target.innerText;
-            dominoPic.setAttribute("src", "img/d-"+textArr[1]+"-"+textArr[2]+".png");
+
+            changeDomino(textArr[1],textArr[2]);
+
             dominoList.style.display = "none";
             openListDomino.innerText = "🔽";
             initialOptions();

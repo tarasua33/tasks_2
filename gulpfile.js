@@ -30,10 +30,6 @@ gulp.task("styles:app", function () {
         .pipe(gulp.dest("dist/css"))
         .pipe(sync.stream())
 });
-gulp.task("img", function () {
-    return gulp.src("src/img/*")
-        .pipe(gulp.dest("dist/img"))
-});
 
 gulp.task("scripts:app", function () {
     return gulp.src("src/scripts/*")
@@ -50,7 +46,7 @@ gulp.task("del", function (callback) {
 
 
 gulp.task("build", ["del"],  function () {
-    gulp.start(["html","styles:app","img", "scripts:app"]);
+    gulp.start(["html","styles:app", "scripts:app"]);
 });
 
 
